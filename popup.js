@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
       chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
         var activeTab = tabs[0];
         chrome.tabs.sendMessage(activeTab.id, {action: "scrape"}, function(response) {
+                console.log(response)
                 if (response && response.content) {
                   resultDiv.textContent = "Content: " + response.content;
                 } else {
