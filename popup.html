@@ -8,7 +8,22 @@
   </style>
 </head>
 <body>
-  <button id="scrapeButton">Scrape Flights</button>
+  <form id="form">
+    <input type="radio" id="ryanair" name="carrier" value="Ryanair">
+    <label for="html">Ryanair</label><br>
+    <input type="radio" id="css" name="carrier" value="WizzAir">
+    <label for="css">WizzAir</label><br>
+  
+    <label for="from">From: </label>
+    <input type="text" id="from" name="from"><br>
+
+    <label for="from">To:___</label>
+    <input type="text" id="to" name="to"><br>
+    <br>  
+
+    <button id="scrapeButton">Scrape Flights</button>
+  </form>
+
   <div id="result"></div>
   <script src="popup.js"></script>
 </body>
