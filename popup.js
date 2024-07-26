@@ -18,7 +18,7 @@ function printFlightsWithLinks(flights) {
       return printFlightsWithoutLinks(flights);
   }
 
-  let result = "<p>";
+  let result = "<p>" + newline;
   flights.forEach(flight => {
     result += "<a href=" + flight.createLink() + ">- " + flight.toString() + "</a>" + newline;
   });
