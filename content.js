@@ -4,8 +4,6 @@ function processResultCard(resultCard, flights) {
   flight.price = parseInt(resultCard.querySelector('[data-test="ResultCardPrice"]').textContent.slice(0, -2));
   let startDate = resultCard.querySelectorAll('[data-test="ResultCardSectorDepartureDate"]')[0].textContent.slice(3).replace(".", "").split(" ");
   let endDate = resultCard.querySelectorAll('[data-test="ResultCardSectorDepartureDate"]')[1].textContent.slice(3).replace(".", "").split(" ");
-  console.log(resultCard.querySelectorAll('[data-test="ResultCardSectorDepartureDate"]')[0], startDate)
-  console.log(resultCard.querySelectorAll('[data-test="ResultCardSectorDepartureDate"]')[1], endDate)
   flight.startDay = parseInt(startDate[0]);
   flight.startMonth = parseInt(startDate[1]);
   flight.endDay = parseInt(endDate[0]);
