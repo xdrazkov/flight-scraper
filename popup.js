@@ -45,10 +45,31 @@ function printData(data) {
   resultWithoutLinksDiv.innerHTML = escapeHtml(withoutLinks);
 }
 
+function sortFlights(flights) {
+  return flights.sort((a, b) => 
+    a.startMonth - b.startMonth || 
+    a.startDay - b.startDay || 
+    a.price - b.price
+  );
+}
+
+function deleteDuplicates(flights) {
+  for (let i = 0; i < flights.length - 1; i++) {
+    if (flights[i].startDay === flights[i + 1].startDay && flights[i].startMonth === flights[i + 1].startMonth
+      && flights[i].endDay === flights[i + 1].endDay && flights[i].endMonth === flights[i + 1].endMonth) {
+      flights.splice(i + 1, 1);
+      i--;
+    }
+  }
+}
+
 function processScrapedData(data, offsetPriceBy) {
     for (let flight of data) {
       flight.price -= offsetPriceBy;
     }
+
+    sortFlights(data);
+    deleteDuplicates(data);
 
   printData(data);
 }
