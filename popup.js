@@ -87,6 +87,7 @@ function castToFlights(data) {
 }
 
 function scrape() {
+    event.preventDefault();
     var offsetPriceBy = document.getElementById('offsetPriceBy').value;
 
     chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
