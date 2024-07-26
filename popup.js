@@ -1,15 +1,33 @@
 let isKiwi = true;
 
+function printFlightsWithLinks(flights) {
+  if (flights[0].carrierFrom !== "Ryanair" && !flights[0].carrierFrom.includes("Wizz")) {
+      return printFlightsWithoutLinks(flights);
+  }
+
+  let result = "<p>";
+  flights.forEach(flight => {
+      result += `<a href="${flight.createLink()}">- ${flight.toString()}</a><br />\n`;
+  });
+  result += "</p>\n";
+  return result;
+}
+
+function printFlightsWithoutLinks(flights) {
+  let result = "";
+  flights.forEach(flight => {
+      result += `- ${flight.toString()}\n`;
+  });
+  return result;
+}
+
 function printData(data) {
   var resultDiv = document.getElementById('result');
 
-  result = "";
-  for (let flight of data) {
-    console.log(flight);
-    result += flight.createLink() + "<br>";
-  }
+  let withLinks = printFlightsWithLinks(data);
+  let withoutLinks = printFlightsWithoutLinks(data);
 
-  resultDiv.innerHTML = result;
+  resultDiv.innerHTML = withLinks + "\n" + withoutLinks;
 }
 
 function processScrapedData(data, carrier, from, to) {

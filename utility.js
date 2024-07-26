@@ -34,6 +34,14 @@ class Flight {
       this.carrierTo = flight.carrierTo;
     }
 
+    toString() {
+        if (this.startMonth === this.endMonth) {
+            return `${this.startDay}. - ${this.endDay}. ${monthMap[this.startMonth.toString()]} za ${this.price}€`;
+        } else {
+            return `${this.startDay}. ${monthMap[this.startMonth.toString()]} - ${this.endDay}. ${monthMap[this.endMonth.toString()]} za ${this.price}€`;
+        }
+    }
+
     createLink() {
       if (this.carrierFrom == "Ryanair") {
         return this.makeRyanairLink();
