@@ -16,7 +16,7 @@
     },
     "content_scripts": [
     {
-      "matches": ["*://*.kiwi.com/*", "*://kiwi.com/*"],
+      "matches": ["*://*.kiwi.com/*", "*://kiwi.com/*", "*://www.azair.eu/*"],
       "js": ["content.js", "utility.js"]
     }
     ],

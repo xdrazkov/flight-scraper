@@ -49,6 +49,8 @@ function sortFlights(flights) {
   return flights.sort((a, b) => 
     a.startMonth - b.startMonth || 
     a.startDay - b.startDay || 
+    a.endMonth - b.endMonth ||
+    a.endDay - b.endDay ||
     a.price - b.price
   );
 }
