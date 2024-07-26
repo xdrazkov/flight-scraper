@@ -7,6 +7,9 @@ function processResultCard(resultCard) {
   flight.startMonth = parseInt(startDate[1]);
   flight.endDay = parseInt(endDate[0]);
   flight.endMonth = parseInt(endDate[1]);
+  flight.fromCode = resultCard.querySelectorAll('[data-test="stationName"]')[0].textContent;
+  flight.toCode = resultCard.querySelectorAll('[data-test="stationName"]')[1].textContent;
+  flight.carrierFirst = resultCard.querySelector('img').title;
   return flight;
 }
 

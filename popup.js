@@ -14,7 +14,7 @@ function escapeHtml(text) {
 }
 
 function printFlightsWithLinks(flights) {
-  if (flights[0].carrierFrom !== "Ryanair" && !flights[0].carrierFrom.includes("WizzAir")) {
+  if (flights[0].carrierFirst !== "Ryanair" && !flights[0].carrierFirst.includes("Wizz")) {
       return printFlightsWithoutLinks(flights);
   }
 
@@ -45,14 +45,8 @@ function printData(data) {
   resultWithoutLinksDiv.innerHTML = escapeHtml(withoutLinks);
 }
 
-function processScrapedData(data, carrier, from, to, offsetPriceBy) {
+function processScrapedData(data, offsetPriceBy) {
     for (let flight of data) {
-      if (isKiwi) {
-        flight.carrierFrom = carrier;
-        flight.carrierTo = carrier;
-        flight.fromCode = from;
-        flight.toCode = to;
-      }
       flight.price -= offsetPriceBy;
     }
 
@@ -75,9 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
       event.preventDefault();
 
-      var carrier = document.querySelector('input[name="carrier"]:checked').value;
-      var from = document.getElementById('from').value;
-      var to = document.getElementById('to').value;
       var offsetPriceBy = document.getElementById('offsetPriceBy').value;
 
       chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
@@ -85,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
         chrome.tabs.sendMessage(activeTab.id, {action: "scrape"}, function(response) {
                 console.log(response)
                 let data = castToFlights(response.content);
-                processScrapedData(data, carrier, from, to, offsetPriceBy);
+                processScrapedData(data, offsetPriceBy);
               });
       });
     });

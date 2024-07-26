@@ -17,8 +17,7 @@ class Flight {
       this.toCode = "";
       this.fromName = "";
       this.toName = "";
-      this.carrierFrom = "";
-      this.carrierTo = "";
+      this.carrierFirst = "";
     }
 
     copy(flight) {
@@ -31,8 +30,7 @@ class Flight {
       this.toCode = flight.toCode;
       this.fromName = flight.fromName;
       this.toName = flight.toName;
-      this.carrierFrom = flight.carrierFrom;
-      this.carrierTo = flight.carrierTo;
+      this.carrierFirst = flight.carrierFirst;
     }
 
     toString() {
@@ -44,8 +42,8 @@ class Flight {
     }
 
     createLink() {
-      if (this.carrierFrom == "Ryanair") {
-        return this.makeRyanairLink();
+      if (this.carrierFirst == "Ryanair") {
+        return this.createRyanairLink();
       } else {
         return this.createWizzLink();
       }
@@ -62,8 +60,8 @@ class Flight {
     }
 
     createRyanairLink() {
-      const fromDate = this.dateToString(this.startMonth, flight.startDay);
-      const toDate = this.dateToString(this.endMonth, flight.endDay);
+      const fromDate = this.dateToString(this.startMonth, this.startDay);
+      const toDate = this.dateToString(this.endMonth, this.endDay);
       return `https://www.ryanair.com/sk/en/trip/flights/select?adults=1&dateOut=${fromDate}&dateIn=${toDate}&originIata=${this.fromCode}&destinationIata=${this.toCode}`;
     }
   }
