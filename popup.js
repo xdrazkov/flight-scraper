@@ -45,15 +45,16 @@ function printData(data) {
   resultWithoutLinksDiv.innerHTML = escapeHtml(withoutLinks);
 }
 
-function processScrapedData(data, carrier, from, to) {
-  if (isKiwi) {
+function processScrapedData(data, carrier, from, to, offsetPriceBy) {
     for (let flight of data) {
-      flight.carrierFrom = carrier;
-      flight.carrierTo = carrier;
-      flight.fromCode = from;
-      flight.toCode = to;
+      if (isKiwi) {
+        flight.carrierFrom = carrier;
+        flight.carrierTo = carrier;
+        flight.fromCode = from;
+        flight.toCode = to;
+      }
+      flight.price -= offsetPriceBy;
     }
-  }
 
   printData(data);
 }
@@ -77,13 +78,14 @@ document.addEventListener('DOMContentLoaded', function() {
       var carrier = document.querySelector('input[name="carrier"]:checked').value;
       var from = document.getElementById('from').value;
       var to = document.getElementById('to').value;
+      var offsetPriceBy = document.getElementById('offsetPriceBy').value;
 
       chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
         var activeTab = tabs[0];
         chrome.tabs.sendMessage(activeTab.id, {action: "scrape"}, function(response) {
                 console.log(response)
                 let data = castToFlights(response.content);
-                processScrapedData(data, carrier, from, to);
+                processScrapedData(data, carrier, from, to, offsetPriceBy);
               });
       });
     });
