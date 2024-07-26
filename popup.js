@@ -35,12 +35,14 @@ function printFlightsWithoutLinks(flights) {
 }
 
 function printData(data) {
-  var resultDiv = document.getElementById('result');
+  var resultWithLinksDiv = document.getElementById('resultWithLinks');
+  var resultWithoutLinksDiv = document.getElementById('resultWithoutLinks');
 
   let withLinks = printFlightsWithLinks(data);
   let withoutLinks = printFlightsWithoutLinks(data);
 
-  resultDiv.innerHTML = escapeHtml(withLinks + newline + newline + withoutLinks);
+  resultWithLinksDiv.innerHTML = escapeHtml(withLinks);
+  resultWithoutLinksDiv.innerHTML = escapeHtml(withoutLinks);
 }
 
 function processScrapedData(data, carrier, from, to) {
@@ -86,3 +88,25 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   });
+
+function copyContents(element) {
+  var range = document.createRange();
+  range.selectNode(element);
+  window.getSelection().removeAllRanges();
+  window.getSelection().addRange(range);
+  document.execCommand("copy");
+  window.getSelection().removeAllRanges();
+}
+
+function copyWithLinks() {
+  var resultWithLinksDiv = document.getElementById('resultWithLinks');
+  copyContents(resultWithLinksDiv);
+}
+
+function copyWithoutLinks() {
+  var resultWithoutLinksDiv = document.getElementById('resultWithoutLinks');
+  copyContents(resultWithoutLinksDiv);
+}
+
+document.getElementById('copyWithLinks').addEventListener('click', copyWithLinks);
+document.getElementById('copyWithoutLinks').addEventListener('click', copyWithoutLinks);
