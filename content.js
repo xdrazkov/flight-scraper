@@ -1,6 +1,5 @@
-function processResultCard(resultCard, flights) {
+function processResultCard(resultCard) {
   let flight = new Flight();
-
   flight.price = parseInt(resultCard.querySelector('[data-test="ResultCardPrice"]').textContent.slice(0, -2));
   let startDate = resultCard.querySelectorAll('[data-test="ResultCardSectorDepartureDate"]')[0].textContent.slice(3).replace(".", "").split(" ");
   let endDate = resultCard.querySelectorAll('[data-test="ResultCardSectorDepartureDate"]')[1].textContent.slice(3).replace(".", "").split(" ");
