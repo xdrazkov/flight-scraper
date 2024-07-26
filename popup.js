@@ -86,23 +86,23 @@ function castToFlights(data) {
   return flights;
 }
 
+function scrape() {
+    var offsetPriceBy = document.getElementById('offsetPriceBy').value;
+
+    chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+      var activeTab = tabs[0];
+      chrome.tabs.sendMessage(activeTab.id, {action: "scrape"}, function(response) {
+              console.log(response)
+              let data = castToFlights(response.content);
+              processScrapedData(data, offsetPriceBy);
+            });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     var form = document.getElementById('form');
-
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      var offsetPriceBy = document.getElementById('offsetPriceBy').value;
-
-      chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
-        var activeTab = tabs[0];
-        chrome.tabs.sendMessage(activeTab.id, {action: "scrape"}, function(response) {
-                console.log(response)
-                let data = castToFlights(response.content);
-                processScrapedData(data, offsetPriceBy);
-              });
-      });
-    });
+    form.addEventListener('submit', scrape);
+    scrape();
   });
 
 function copyContents(element) {
