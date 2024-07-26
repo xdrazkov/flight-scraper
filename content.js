@@ -52,18 +52,11 @@ function processAzairResult(resultElement) {
   flight.toName = toSpan.textContent.slice(6).trim();
 
   // Get carriers
-  const fromDiv = resultElement.querySelectorAll('div.detail')[0].querySelector('p');
-  const toDiv = resultElement.querySelectorAll('div.detail')[1].querySelector('p');
+  const firstDiv = resultElement.querySelectorAll('div.detail')[0].querySelector('p');
 
-  fromDiv.childNodes.forEach(child => {
+  firstDiv.childNodes.forEach(child => {
       if (child.nodeType === Node.ELEMENT_NODE && child.classList.contains('airline')) {
-        flight.carrierFrom = child.textContent;
-      }
-  });
-
-  toDiv.childNodes.forEach(child => {
-      if (child.nodeType === Node.ELEMENT_NODE && child.classList.contains('airline')) {
-        flight.carrierTo = child.textContent;
+        flight.carrierFirst = child.textContent;
       }
   });
 
