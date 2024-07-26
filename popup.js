@@ -1,22 +1,35 @@
 let isKiwi = true;
+const newline = "newline";
+
+function escapeHtml(text) {
+  return text
+      .replaceAll('&euro;', "€")
+      .replaceAll(/&/g, "&amp;")
+      .replaceAll(/</g, "&lt;")
+      .replaceAll(/>/g, "&gt;")
+      .replaceAll(/"/g, "&quot;")
+      .replaceAll(/'/g, "&#039;")
+      .replaceAll('€', "&euro;")
+      .replaceAll(/newline/g, "<br>");
+}
 
 function printFlightsWithLinks(flights) {
-  if (flights[0].carrierFrom !== "Ryanair" && !flights[0].carrierFrom.includes("Wizz")) {
+  if (flights[0].carrierFrom !== "Ryanair" && !flights[0].carrierFrom.includes("WizzAir")) {
       return printFlightsWithoutLinks(flights);
   }
 
   let result = "<p>";
   flights.forEach(flight => {
-      result += `<a href="${flight.createLink()}">- ${flight.toString()}</a><br />\n`;
+    result += "<a href=" + flight.createLink() + ">- " + flight.toString() + "</a>" + newline;
   });
-  result += "</p>\n";
+  result += "</p>";
   return result;
 }
 
 function printFlightsWithoutLinks(flights) {
   let result = "";
   flights.forEach(flight => {
-      result += `- ${flight.toString()}\n`;
+      result += `- ${flight.toString()}` + newline;
   });
   return result;
 }
@@ -27,13 +40,14 @@ function printData(data) {
   let withLinks = printFlightsWithLinks(data);
   let withoutLinks = printFlightsWithoutLinks(data);
 
-  resultDiv.innerHTML = withLinks + "\n" + withoutLinks;
+  resultDiv.innerHTML = escapeHtml(withLinks + newline + newline + withoutLinks);
 }
 
 function processScrapedData(data, carrier, from, to) {
   if (isKiwi) {
     for (let flight of data) {
-      flight.carrier = carrier;
+      flight.carrierFrom = carrier;
+      flight.carrierTo = carrier;
       flight.fromCode = from;
       flight.toCode = to;
     }

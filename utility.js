@@ -4,6 +4,7 @@ monthMap = {
     '7': 'júl 2024', '8': 'august 2024', '9': 'september 2024',
     '10': 'október 2024', '11': 'november 2024', '12': 'december 2024'
 }
+const euro = "&euro;";
 
 class Flight {
     constructor() {
@@ -36,9 +37,9 @@ class Flight {
 
     toString() {
         if (this.startMonth === this.endMonth) {
-            return `${this.startDay}. - ${this.endDay}. ${monthMap[this.startMonth.toString()]} za ${this.price}€`;
+            return `${this.startDay}. - ${this.endDay}. ${monthMap[this.startMonth.toString()]} za ${this.price}` + euro;
         } else {
-            return `${this.startDay}. ${monthMap[this.startMonth.toString()]} - ${this.endDay}. ${monthMap[this.endMonth.toString()]} za ${this.price}€`;
+            return `${this.startDay}. ${monthMap[this.startMonth.toString()]} - ${this.endDay}. ${monthMap[this.endMonth.toString()]} za ${this.price}` + euro;
         }
     }
 
