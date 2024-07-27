@@ -20,7 +20,7 @@ function printFlightsWithLinks(flights) {
 
   let result = "<p>" + newline;
   flights.forEach(flight => {
-    result += "<a href=" + flight.createLink() + ">- " + flight.toString() + "</a>" + newline;
+    result += "<a href=" + flight.createLink() + ">- " + flight.toString() + "</a><br />" + newline;
   });
   result += "</p>";
   return result;
