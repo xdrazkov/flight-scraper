@@ -65,10 +65,11 @@ function deleteDuplicates(flights) {
   }
 }
 
-function processScrapedData(data, offsetPriceBy) {
+function processScrapedData(data, offsetPriceBy, priceLimit) {
     for (let flight of data) {
       flight.price -= offsetPriceBy;
     }
+    data = data.filter(flight => flight.price <= priceLimit);
 
     sortFlights(data);
     deleteDuplicates(data);
@@ -89,13 +90,14 @@ function castToFlights(data) {
 function scrape() {
     event.preventDefault();
     var offsetPriceBy = document.getElementById('offsetPriceBy').value;
+    var priceLimit = document.getElementById('priceLimit').value;
 
     chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
       var activeTab = tabs[0];
       chrome.tabs.sendMessage(activeTab.id, {action: "scrape"}, function(response) {
               console.log(response)
               let data = castToFlights(response.content);
-              processScrapedData(data, offsetPriceBy);
+              processScrapedData(data, offsetPriceBy, priceLimit);
             });
     });
 }
