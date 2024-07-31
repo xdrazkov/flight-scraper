@@ -65,14 +65,18 @@ function deleteDuplicates(flights) {
   }
 }
 
-function processScrapedData(data, offsetPriceBy, priceLimit) {
+function processScrapedData(data, offsetPriceBy, priceLimit, maxResults) {
     for (let flight of data) {
       flight.price -= offsetPriceBy;
     }
     data = data.filter(flight => flight.price <= priceLimit);
 
-    sortFlights(data);
     deleteDuplicates(data);
+
+    data.sort((a, b) => a.price - b.price);
+    data = data.slice(0, maxResults);
+
+    sortFlights(data);
 
   printData(data);
 }
@@ -91,13 +95,14 @@ function scrape() {
     event.preventDefault();
     var offsetPriceBy = document.getElementById('offsetPriceBy').value;
     var priceLimit = document.getElementById('priceLimit').value;
+    var maxResults = document.getElementById('maxResults').value;
 
     chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
       var activeTab = tabs[0];
       chrome.tabs.sendMessage(activeTab.id, {action: "scrape"}, function(response) {
               console.log(response)
               let data = castToFlights(response.content);
-              processScrapedData(data, offsetPriceBy, priceLimit);
+              processScrapedData(data, offsetPriceBy, priceLimit, maxResults);
             });
     });
 }
