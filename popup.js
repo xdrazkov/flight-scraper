@@ -56,6 +56,7 @@ function sortFlights(flights) {
 }
 
 function deleteDuplicates(flights) {
+  sortFlights(flights);
   for (let i = 0; i < flights.length - 1; i++) {
     if (flights[i].startDay === flights[i + 1].startDay && flights[i].startMonth === flights[i + 1].startMonth
       && flights[i].endDay === flights[i + 1].endDay && flights[i].endMonth === flights[i + 1].endMonth) {
