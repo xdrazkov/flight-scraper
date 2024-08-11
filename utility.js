@@ -1,9 +1,4 @@
-monthMap = {
-    '1': 'január 2025', '2': 'február 2025', '3': 'marec 2025',
-    '4': 'apríl 2025', '5': 'máj 2025', '6': 'jún 2025',
-    '7': 'júl 2025', '8': 'august 2024', '9': 'september 2024',
-    '10': 'október 2024', '11': 'november 2024', '12': 'december 2024'
-}
+monthNames = ["Január", "Február", "Marec", "Apríl", "Máj", "Jún", "Júl", "August", "September", "Október", "November", "December"];
 const euro = "&euro;";
 
 class Flight {
@@ -12,6 +7,8 @@ class Flight {
       this.startMonth = 0;
       this.endDay = 0;
       this.endMonth = 0;
+      this.startYear = 0;
+      this.endYear = 0;
       this.price = 0;
       this.fromCode = "";
       this.toCode = "";
@@ -31,13 +28,24 @@ class Flight {
       this.fromName = flight.fromName;
       this.toName = flight.toName;
       this.carrierFirst = flight.carrierFirst;
+      this.startYear = flight.startYear;
+      this.endYear = flight.endYear;
+      this.setYear();
+    }
+
+    setYear() {
+      // If the Flight's month is less than the current month,
+      // then it is in the next year, else it is in the current year
+      const currentMonth = new Date().getMonth() + 1;
+      this.startYear = this.startMonth <= currentMonth ? new Date().getFullYear() + 1 : new Date().getFullYear();
+      this.endYear = this.endMonth <= currentMonth ? new Date().getFullYear() + 1 : new Date().getFullYear();
     }
 
     toString() {
         if (this.startMonth === this.endMonth) {
-            return `${this.startDay}. - ${this.endDay}. ${monthMap[this.startMonth.toString()]} za ${this.price}` + euro;
+            return `${this.startDay}. - ${this.endDay}. ${monthNames[this.startMonth - 1]} ${this.startYear} za ${this.price}` + euro;
         } else {
-            return `${this.startDay}. ${monthMap[this.startMonth.toString()]} - ${this.endDay}. ${monthMap[this.endMonth.toString()]} za ${this.price}` + euro;
+            return `${this.startDay}. ${monthNames[this.startMonth - 1]} ${this.startYear} - ${this.endDay}. ${monthNames[this.endMonth - 1]} ${this.endYear} za ${this.price}` + euro;
         }
     }
 
@@ -49,19 +57,19 @@ class Flight {
       }
     }
 
-    dateToString(month, day) {
-      return `${monthMap[month.toString()].slice(-4)}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-    }    
+    dateToString(year, month, day) {
+      return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    }
 
     createWizzLink() {
-      const fromDate = this.dateToString(this.startMonth, this.startDay);
-      const toDate = this.dateToString(this.endMonth, this.endDay);
+      const fromDate = this.dateToString(this.startYear, this.startMonth, this.startDay);
+      const toDate = this.dateToString(this.startYear, this.endMonth, this.endDay);
       return `https://wizzair.com/sk-sk/booking/select-flight/${this.fromCode}/${this.toCode}/${fromDate}/${toDate}/1/0/0/null`;
     }
 
     createRyanairLink() {
-      const fromDate = this.dateToString(this.startMonth, this.startDay);
-      const toDate = this.dateToString(this.endMonth, this.endDay);
+      const fromDate = this.dateToString(this.startYear, this.startMonth, this.startDay);
+      const toDate = this.dateToString(this.startYear, this.endMonth, this.endDay);
       return `https://www.ryanair.com/sk/en/trip/flights/select?adults=1&dateOut=${fromDate}&dateIn=${toDate}&originIata=${this.fromCode}&destinationIata=${this.toCode}`;
     }
   }

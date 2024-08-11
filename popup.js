@@ -47,6 +47,7 @@ function printData(data) {
 
 function sortFlights(flights) {
   return flights.sort((a, b) => 
+    a.startYear - b.startYear ||
     a.startMonth - b.startMonth || 
     a.startDay - b.startDay || 
     a.endMonth - b.endMonth ||
