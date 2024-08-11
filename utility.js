@@ -1,7 +1,7 @@
 monthMap = {
     '1': 'január 2025', '2': 'február 2025', '3': 'marec 2025',
     '4': 'apríl 2025', '5': 'máj 2025', '6': 'jún 2025',
-    '7': 'júl 2024', '8': 'august 2024', '9': 'september 2024',
+    '7': 'júl 2025', '8': 'august 2024', '9': 'september 2024',
     '10': 'október 2024', '11': 'november 2024', '12': 'december 2024'
 }
 const euro = "&euro;";
