@@ -43,10 +43,15 @@ class Flight {
 
     toString() {
         if (this.startMonth === this.endMonth) {
-            return `${this.startDay}. - ${this.endDay}. ${monthNames[this.startMonth - 1]} ${this.startYear} za ${this.price}` + euro;
-        } else {
-            return `${this.startDay}. ${monthNames[this.startMonth - 1]} ${this.startYear} - ${this.endDay}. ${monthNames[this.endMonth - 1]} ${this.endYear} za ${this.price}` + euro;
+          return `${this.startDay}. - ${this.endDay}. ${monthNames[this.startMonth - 1]} ${this.startYear} za ${this.price}` + euro;
         }
+
+        if (this.startYear == this.endYear) {
+          return `${this.startDay}. ${monthNames[this.startMonth - 1]} - ${this.endDay}. ${monthNames[this.endMonth - 1]} ${this.endYear} za ${this.price}` + euro;
+        }
+
+        // different years
+        return `${this.startDay}. ${monthNames[this.startMonth - 1]} ${this.startYear} - ${this.endDay}. ${monthNames[this.endMonth - 1]} ${this.endYear} za ${this.price}` + euro;
     }
 
     createLink() {
