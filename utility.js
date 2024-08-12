@@ -63,13 +63,13 @@ class Flight {
 
     createWizzLink() {
       const fromDate = this.dateToString(this.startYear, this.startMonth, this.startDay);
-      const toDate = this.dateToString(this.startYear, this.endMonth, this.endDay);
+      const toDate = this.dateToString(this.endYear, this.endMonth, this.endDay);
       return `https://wizzair.com/sk-sk/booking/select-flight/${this.fromCode}/${this.toCode}/${fromDate}/${toDate}/1/0/0/null`;
     }
 
     createRyanairLink() {
       const fromDate = this.dateToString(this.startYear, this.startMonth, this.startDay);
-      const toDate = this.dateToString(this.startYear, this.endMonth, this.endDay);
+      const toDate = this.dateToString(this.endYear, this.endMonth, this.endDay);
       return `https://www.ryanair.com/sk/en/trip/flights/select?adults=1&dateOut=${fromDate}&dateIn=${toDate}&originIata=${this.fromCode}&destinationIata=${this.toCode}`;
     }
   }
