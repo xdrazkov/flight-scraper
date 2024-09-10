@@ -1,14 +1,19 @@
 monthNames = ["január", "február", "marec", "apríl", "máj", "jún", "júl", "august", "september", "október", "november", "december"];
+dayOfWeekNames = ["nedeľa", "pondelok", "utorok", "streda", "štvrtok", "piatok", "sobota"];
 const euro = "&euro;";
 
 class Flight {
     constructor() {
       this.startDay = 0;
       this.startMonth = 0;
+      this.startYear = 0;
+      this.startStartTime = "";
+      this.startEndTime = "";
       this.endDay = 0;
       this.endMonth = 0;
-      this.startYear = 0;
       this.endYear = 0;
+      this.endStartTime = "";
+      this.endEndTime = "";
       this.price = 0;
       this.fromCode = "";
       this.toCode = "";
@@ -20,16 +25,19 @@ class Flight {
     copy(flight) {
       this.startDay = flight.startDay;
       this.startMonth = flight.startMonth;
+      this.startStartTime = flight.startStartTime;
+      this.startEndTime = flight.startEndTime;
       this.endDay = flight.endDay;
       this.endMonth = flight.endMonth;
+      this.endYear = flight.endYear;
+      this.endStartTime = flight.endStartTime;
+      this.endEndTime = flight.endEndTime;
       this.price = flight.price;
       this.fromCode = flight.fromCode;
       this.toCode = flight.toCode;
       this.fromName = flight.fromName;
       this.toName = flight.toName;
       this.carrierFirst = flight.carrierFirst;
-      this.startYear = flight.startYear;
-      this.endYear = flight.endYear;
       this.setYear();
     }
 
