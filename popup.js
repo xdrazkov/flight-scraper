@@ -41,6 +41,11 @@ function printData(data) {
   let withLinks = printFlightsWithLinks(data);
   let withoutLinks = printFlightsWithoutLinks(data);
 
+  let validAt = "Uvedené ceny sú platné k " + new Date().toLocaleDateString() 
+              + " o " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ".";
+  withLinks = withLinks + newline + newline + validAt;
+  withoutLinks = withoutLinks + newline + validAt;
+
   resultWithLinksDiv.innerHTML = escapeHtml(withLinks);
   resultWithoutLinksDiv.innerHTML = escapeHtml(withoutLinks);
 }
