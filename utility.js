@@ -37,8 +37,8 @@ class Flight {
       // If the Flight's month is less than the current month,
       // then it is in the next year, else it is in the current year
       const currentMonth = new Date().getMonth() + 1;
-      this.startYear = this.startMonth <= currentMonth ? new Date().getFullYear() + 1 : new Date().getFullYear();
-      this.endYear = this.endMonth <= currentMonth ? new Date().getFullYear() + 1 : new Date().getFullYear();
+      this.startYear = this.startMonth < currentMonth ? new Date().getFullYear() + 1 : new Date().getFullYear();
+      this.endYear = this.endMonth < currentMonth ? new Date().getFullYear() + 1 : new Date().getFullYear();
     }
 
     toString() {
