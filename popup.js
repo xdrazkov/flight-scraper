@@ -1,6 +1,7 @@
 let isKiwi = true;
-const newline = "newline";
 
+// NOT USED
+const newline = "newline";
 function escapeHtml(text) {
   return text
       .replaceAll('&euro;', "€")
@@ -12,25 +13,31 @@ function escapeHtml(text) {
       .replaceAll('€', "&euro;")
       .replaceAll(/newline/g, "<br>");
 }
+// NOT USED
+
+
+function makeClickable(link) {
+  return "<a href=" + link + ">" + link + "</a>";
+}
 
 function printFlightsWithLinks(flights) {
   if (flights[0].carrierFirst !== "Ryanair" && !flights[0].carrierFirst.includes("Wizz")) {
       return printFlightsWithoutLinks(flights);
   }
 
-  let result = "<p>" + newline;
+  let result = "&lt;p&gt;" + "<br>";
   flights.forEach(flight => {
-    result += "<a href=" + flight.createLink() + ">- " + flight.toString() + "</a><br />" + newline;
+    result += "&lt;a href=" + makeClickable(flight.createLink()) + "&gt;- " + flight.toString() + "&lt;/a&gt;&lt;br /&gt;" + "<br>";
     result = addTime(result, flight);
   });
-  result += "</p>";
+  result += "&lt;/p&gt;";
   return result;
 }
 
 function printFlightsWithoutLinks(flights) {
   let result = "";
   flights.forEach(flight => {
-      result += `- ${flight.toString()}` + newline;
+      result += `- ${flight.toString()}` + "<br>";
       result = addTime(result, flight);
   });
   return result;
@@ -41,7 +48,7 @@ function addTime(flightString, flight) {
   let dayOfWeekEnd = dayOfWeekNames[new Date(flight.endYear, flight.endMonth - 1, flight.endDay).getDay()];
 
   flightString += "(" + dayOfWeekStart + " " + flight.startStartTime + "-" + flight.startEndTime + " - "
-               + dayOfWeekEnd + " " + flight.endStartTime + "-" + flight.endEndTime + ")" + newline;
+               + dayOfWeekEnd + " " + flight.endStartTime + "-" + flight.endEndTime + ")" + "<br>";
 
   return flightString;
 }
@@ -55,11 +62,11 @@ function printData(data) {
 
   let validAt = "Uvedené ceny sú platné k " + new Date().toLocaleDateString() 
               + " o " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ".";
-  withLinks = withLinks + newline + newline + validAt;
-  withoutLinks = withoutLinks + newline + validAt;
+  withLinks = withLinks + "<br>" + "<br>" + validAt;
+  withoutLinks = withoutLinks + "<br>" + validAt;
 
-  resultWithLinksDiv.innerHTML = escapeHtml(withLinks);
-  resultWithoutLinksDiv.innerHTML = escapeHtml(withoutLinks);
+  resultWithLinksDiv.innerHTML = withLinks;
+  resultWithoutLinksDiv.innerHTML = withoutLinks;
 }
 
 function sortFlights(flights) {
