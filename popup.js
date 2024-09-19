@@ -16,8 +16,8 @@ function escapeHtml(text) {
 // NOT USED
 
 
-function makeClickable(link) {
-  return "<a href=" + link + ">" + link + "</a>";
+function addLink(text, link) {
+  return "<a href=" + link + ">" + text + "</a>";
 }
 
 function printFlightsWithLinks(flights) {
@@ -27,7 +27,7 @@ function printFlightsWithLinks(flights) {
 
   let result = "&lt;p&gt;" + "<br>";
   flights.forEach(flight => {
-    result += "&lt;a href=" + makeClickable(flight.createLink()) + "&gt;• " + flight.toString() + "&lt;/a&gt;&lt;br /&gt;" + "<br>";
+    result += "&lt;a href=" + addLink(flight.createLink(), flight.createLink()) + "&gt;• " + flight.toString() + "&lt;/a&gt;&lt;br /&gt;" + "<br>";
     result += addTime(flight, true);
   });
   result += "&lt;/p&gt;";
@@ -37,7 +37,7 @@ function printFlightsWithLinks(flights) {
 function printFlightsWithoutLinks(flights) {
   let result = "";
   flights.forEach(flight => {
-      result += `• ${flight.toString()}` + "<br>";
+      result += "• " + addLink(flight.toString(), flight.createLink()) + "<br>";
       result += addTime(flight, false);
   });
   return result;
