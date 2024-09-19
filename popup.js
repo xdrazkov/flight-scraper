@@ -64,7 +64,7 @@ function printData(data) {
 
   let validAt = "Uvedené ceny sú platné k " + new Date().toLocaleDateString() 
               + " o " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ".";
-  withLinks = withLinks + validAt + " &lt;br /&gt;";
+  withLinks = withLinks + validAt + " &lt;br /&gt; <br> &lt;br /&gt;";
   withoutLinks = withoutLinks + validAt;
 
   resultWithLinksDiv.innerHTML = withLinks;
