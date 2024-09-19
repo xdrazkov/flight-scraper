@@ -27,7 +27,7 @@ function printFlightsWithLinks(flights) {
 
   let result = "&lt;p&gt;" + "<br>";
   flights.forEach(flight => {
-    result += "&lt;a href=" + makeClickable(flight.createLink()) + "&gt;- " + flight.toString() + "&lt;/a&gt;&lt;br /&gt;" + "<br>";
+    result += "&lt;a href=" + makeClickable(flight.createLink()) + "&gt;• " + flight.toString() + "&lt;/a&gt;&lt;br /&gt;" + "<br>";
     result = addTime(result, flight);
   });
   result += "&lt;/p&gt;";
@@ -37,7 +37,7 @@ function printFlightsWithLinks(flights) {
 function printFlightsWithoutLinks(flights) {
   let result = "";
   flights.forEach(flight => {
-      result += `- ${flight.toString()}` + "<br>";
+      result += `• ${flight.toString()}` + "<br>";
       result = addTime(result, flight);
   });
   return result;
