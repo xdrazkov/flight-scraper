@@ -28,7 +28,7 @@ function printFlightsWithLinks(flights) {
   let result = "&lt;p&gt;" + "<br>";
   flights.forEach(flight => {
     result += "&lt;a href=" + makeClickable(flight.createLink()) + "&gt;• " + flight.toString() + "&lt;/a&gt;&lt;br /&gt;" + "<br>";
-    result = addTime(result, flight);
+    result += addTime(flight);
   });
   result += "&lt;/p&gt;";
   return result;
@@ -38,19 +38,17 @@ function printFlightsWithoutLinks(flights) {
   let result = "";
   flights.forEach(flight => {
       result += `• ${flight.toString()}` + "<br>";
-      result = addTime(result, flight);
+      result += addTime(flight);
   });
   return result;
 }
 
-function addTime(flightString, flight) {
+function addTime(flight) {
   let dayOfWeekStart = dayOfWeekNames[new Date(flight.startYear, flight.startMonth - 1, flight.startDay).getDay()];
   let dayOfWeekEnd = dayOfWeekNames[new Date(flight.endYear, flight.endMonth - 1, flight.endDay).getDay()];
 
-  flightString += "(" + dayOfWeekStart + " " + flight.startStartTime + "-" + flight.startEndTime + " - "
-               + dayOfWeekEnd + " " + flight.endStartTime + "-" + flight.endEndTime + ")" + "<br>";
-
-  return flightString;
+  return "(" + dayOfWeekStart + " " + flight.startStartTime + "-" + flight.startEndTime + " - "
+               + dayOfWeekEnd + " " + flight.endStartTime + "-" + flight.endEndTime + ")" + " &lt;br /&gt;" + "<br>";
 }
 
 function printData(data) {
