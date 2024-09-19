@@ -28,7 +28,7 @@ function printFlightsWithLinks(flights) {
   let result = "&lt;p&gt;" + "<br>";
   flights.forEach(flight => {
     result += "&lt;a href=" + makeClickable(flight.createLink()) + "&gt;• " + flight.toString() + "&lt;/a&gt;&lt;br /&gt;" + "<br>";
-    result += addTime(flight);
+    result += addTime(flight, true);
   });
   result += "&lt;/p&gt;";
   return result;
@@ -38,17 +38,21 @@ function printFlightsWithoutLinks(flights) {
   let result = "";
   flights.forEach(flight => {
       result += `• ${flight.toString()}` + "<br>";
-      result += addTime(flight);
+      result += addTime(flight, false);
   });
   return result;
 }
 
-function addTime(flight) {
+function addTime(flight, withHtml) {
   let dayOfWeekStart = dayOfWeekNames[new Date(flight.startYear, flight.startMonth - 1, flight.startDay).getDay()];
   let dayOfWeekEnd = dayOfWeekNames[new Date(flight.endYear, flight.endMonth - 1, flight.endDay).getDay()];
 
-  return "(" + dayOfWeekStart + " " + flight.startStartTime + "-" + flight.startEndTime + " - "
-               + dayOfWeekEnd + " " + flight.endStartTime + "-" + flight.endEndTime + ")" + " &lt;br /&gt;" + "<br>";
+  result = "(" + dayOfWeekStart + " " + flight.startStartTime + "-" + flight.startEndTime + " - "
+               + dayOfWeekEnd + " " + flight.endStartTime + "-" + flight.endEndTime + ")";
+  if (withHtml) {
+    result += " &lt;br /&gt;";
+  }
+  return result + "<br>";
 }
 
 function printData(data) {
@@ -60,8 +64,8 @@ function printData(data) {
 
   let validAt = "Uvedené ceny sú platné k " + new Date().toLocaleDateString() 
               + " o " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ".";
-  withLinks = withLinks + "<br>" + "<br>" + validAt;
-  withoutLinks = withoutLinks + "<br>" + validAt;
+  withLinks = withLinks + validAt + " &lt;br /&gt;";
+  withoutLinks = withoutLinks + validAt;
 
   resultWithLinksDiv.innerHTML = withLinks;
   resultWithoutLinksDiv.innerHTML = withoutLinks;
